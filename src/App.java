@@ -47,18 +47,16 @@ public class App {
 
     public static int pideComensales() {
         int comensales = 0;
-        //do {
-            System.out.print("¿Cuantos son? (Introduzca -1 para salir del programa): ");
-            try {
-                comensales = Integer.parseInt(System.console().readLine());
-            }
-            catch (NumberFormatException e) {
-                System.out.println("Debe introducir un entero.");
-            }
-            catch (Exception e) {
-                System.out.println("Ha ocurrido un error inesperado.");
-            }
-        //} while (comensales == -1);
+        System.out.print("¿Cuantos son? (Introduzca -1 para salir del programa): ");
+        try {
+            comensales = Integer.parseInt(System.console().readLine());
+        }
+        catch (NumberFormatException e) {
+            System.out.println("Debe introducir un entero.");
+        }
+        catch (Exception e) {
+            System.out.println("Ha ocurrido un error inesperado.");
+        }
         return comensales;
     }
 
