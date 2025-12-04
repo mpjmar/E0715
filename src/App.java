@@ -66,7 +66,7 @@ public class App {
 
     public static void muestraOcupacion(int array[]) {
         repeatBorde("┌─────────", "┬────", "┐", array.length);
-        repeatContenido("│Mesa nº  ", "│%3d ", "│", array);
+        repeatIndice("│Mesa nº  ", "│%3d ", "│", array);
         repeatBorde("├─────────", "┼────", "┤", array.length);
         repeatContenido("│Ocupacion", "│%3d ", "│",array);
         repeatBorde("└─────────", "┴────", "┘", array.length);
@@ -76,6 +76,13 @@ public class App {
         System.out.print(izq);
         for (int i = 0; i < len; i++)
             System.out.print(centro);
+        System.out.println(dcha);
+    }
+
+    public static void repeatIndice(String izq, String centro, String dcha, int array[]) {
+        System.out.print(izq);
+        for (int i = 0; i < array.length; i++)
+            System.out.printf(centro, i + 1);
         System.out.println(dcha);
     }
 
