@@ -1,8 +1,10 @@
 public class App {
+
+    public static final int CAPACIDAD = 4;
     public static void main(String[] args) throws Exception {
 
         int ocupacion[] = generaOcupacion(10);
-        int comensales = 0;
+        int comensales;
         do {
             muestraOcupacion(ocupacion);
             comensales = pideComensales();
@@ -11,12 +13,12 @@ public class App {
     }
     
     public static String asignaMesa(int comensales, int ocupacion[]) {
-        String mensaje = "";
+        String mensaje;
         if (comensales < -1)
             mensaje = "El número comensales introducido no es correcto.";
         else if (comensales == -1)
             mensaje = "Gracias, hasta pronto.";
-        else if (comensales > 4)
+        else if (comensales > CAPACIDAD)
             mensaje = String.format("Lo siento, no admitimos grupos de %d, haga grupos de 4 personas como máximo e intente de nuevo.", comensales);
         else 
             mensaje = buscaMesa(comensales, ocupacion);
@@ -25,8 +27,10 @@ public class App {
 
     public static String buscaMesa(int comensales, int ocupacion[]) {
         int mesa = 0;
+        // int mesaPosible = -1;
+        // int mesaVacia = -1;
         while(mesa < ocupacion.length) {
-            if (ocupacion[mesa] != 0)
+            if (ocupacion[mesa] != 0) 
                 mesa++;
             else {
                 ocupacion[mesa] += comensales;
@@ -35,9 +39,9 @@ public class App {
         }
         mesa = 0;
         while (mesa < ocupacion.length) {
-            if (ocupacion[mesa] + comensales <= 4) {
+            if (ocupacion[mesa] + comensales <= CAPACIDAD) {
                 ocupacion[mesa] += comensales;
-                return String.format("Tendrán de compatir mesa. Por favor, siéntense enla mesa número %d", mesa + 1);
+                return String.format("Tendrán de compatir mesa. Por favor, siéntense en la mesa número %d", mesa + 1);
             }
             else 
                 mesa++;
@@ -61,32 +65,25 @@ public class App {
     }
 
     public static void muestraOcupacion(int array[]) {
-        System.out.print("┌─────────");
-        for (int i = 0; i < array.length; i++)
-            System.out.print("┬────");
-        System.out.println("┐");
+        repeatBorde("┌─────────", "┬────", "┐", array.length);
+        repeatContenido("│Mesa nº  ", "│%3d ", "│", array);
+        repeatBorde("├─────────", "┼────", "┤", array.length);
+        repeatContenido("│Ocupacion", "│%3d ", "│",array);
+        repeatBorde("└─────────", "┴────", "┘", array.length);
+    }
 
-        System.out.print("│Mesa nº  ");
-        for (int i = 0; i < array.length; i++)
-            System.out.printf("│%3s ", i + 1);
-        System.out.println("│");
+    public static void repeatBorde(String izq, String centro, String dcha, int len) {
+        System.out.print(izq);
+        for (int i = 0; i < len; i++)
+            System.out.print(centro);
+        System.out.println(dcha);
+    }
 
-        System.out.print("├─────────");
+    public static void repeatContenido(String izq, String centro, String dcha, int array[]) {
+        System.out.print(izq);
         for (int i = 0; i < array.length; i++)
-            System.out.print("┼────");
-        System.out.println("┤");
-
-        System.out.print("│Ocupacion");
-        for (int i = 0; i < array.length; i++)
-            System.out.printf("│%3s ", array[i]);
-        System.out.println("│");
-
-        System.out.print("└─────────");
-        for (int i = 0; i < array.length; i++)
-            System.out.print("┴────");
-        System.out.println("┘");
-        System.out.println();
-
+            System.out.printf(centro, array[i]);
+        System.out.println(dcha);
     }
 
     public static int[] generaOcupacion(int mesas) {
